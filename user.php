@@ -1,16 +1,14 @@
 <?php
 session_start();
+
 header("Cache-control: private");
-if ($_SESSION["access"] == "granted")
+if ($_SESSION["access"] == "granted") {
 
-  $user = $_GET["user"];
-  
-  if ( ! isset($_SESSION['user']) )
-	$_SESSION['user'] = $user;
-	
-  print "Hello $_SESSION['user']";
+	$user = $_GET["user"];
 
-else
+	print 'Hello '  . $user .  ' </br>';
+	print $_SESSION["id"]   ;
 
-  header("Location: ./login.html");
+} else
+	header("Location: ./login.html");
 ?>

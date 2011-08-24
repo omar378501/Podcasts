@@ -19,11 +19,20 @@ $result = mysql_query($query);
 
 /* Allow access if a matching record was found, else deny access. */
 if (mysql_fetch_row($result)) {
-  /* access granted */
-  session_start();
-  header("Cache-control: private");
-  $_SESSION["access"] = "granted";
-  header("Location: ./user.php?user=$user");
+	/* access granted */
+	while ($row = mysql_fetch_array($result, MYSQL_NUM)) {
+		
+		printf("ID: %s ", $row[0]);  
+		$user_id = $row[0];
+	}	
+	
+	session_start();
+	header("Cache-control: private");
+	$_SESSION["access"] = "granted";
+	$_SESSION["username"] = $user;
+	$_SESSION["id"] = $user_id;
+  
+	#header("Location: ./user.php?user=$user");
 } else
   /* access denied &#8211; redirect back to login */
   header("Location: ./login.html");
