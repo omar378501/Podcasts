@@ -4,14 +4,12 @@ $user = $_POST["username"];
 $pass = sha1($_POST["password"]);
 
 /* Establecer la conexion a la base de datos */
-$server = mysql_connect("localhost", "filepush", "filepush");
-
+$server = mysql_connect("localhost", "filepush", "filepush"); 
 if (!$server) die(mysql_error());
-
 mysql_select_db("filepush");
   
 /* Sentencia de SQL para buscar en la base de datos */
-$query = sprintf("SELECT id,username FROM user WHERE username='%s' AND password='%s'",
+$query = sprintf("SELECT id,enabled FROM user WHERE username='%s' AND password='%s'",
 	mysql_real_escape_string($user),
 	mysql_real_escape_string($pass));
 
@@ -28,10 +26,12 @@ if (!$result) {
 
 /* Permitir el acceso solo si se encontro un match */
 if (mysql_fetch_row($result)) {
-	
 	/* Acceso Permitido */
-	$user_id = mysql_result($result, 0);
-	$user_enabled = mysql_result($result, 4);
+	$result = mysql_query($query);
+
+	$row = mysql_fetch_array($result);
+	$user_id = $row["id"];
+	$enabled = $row["enabled"];
 	
 	
 	// Inicia sesion
@@ -42,13 +42,15 @@ if (mysql_fetch_row($result)) {
 	$_SESSION["access"] = "granted";
 	$_SESSION["username"] = $user;
 	$_SESSION["id"] = $user_id;
-	$_SESSION["user_enabled"] = $user_enabled;
+	$_SESSION["enabled"] = $enabled;
   
 	header("Location: ./user.php");
 	
 } else {
-  /* access denied &#8211; redirect back to login */
+	
+  /* Acceso negado */
   header("Location: ./login.html");
+  
 }
 
 mysql_close($server);  
