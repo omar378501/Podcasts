@@ -2,10 +2,10 @@
 -- version 3.4.3.2
 -- http://www.phpmyadmin.net
 --
--- Host: localhost
--- Generation Time: Aug 24, 2011 at 09:28 AM
--- Server version: 5.5.14
--- PHP Version: 5.3.6
+-- Servidor: localhost
+-- Tiempo de generación: 26-08-2011 a las 15:20:45
+-- Versión del servidor: 5.1.58
+-- Versión de PHP: 5.3.6
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,30 +17,48 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `filepush`
+-- Base de datos: `filepush`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Estructura de tabla para la tabla `course`
+--
+
+CREATE TABLE IF NOT EXISTS `course` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Unique course ID',
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL COMMENT 'Course short name',
+  `description` text COLLATE utf8_unicode_ci NOT NULL COMMENT 'Course description',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `user`
 --
 
 CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Numero unico identificatorio del usuario',
-  `username` text NOT NULL COMMENT 'Nombre de usuario',
-  `email` text NOT NULL COMMENT 'Correo electronico del usuario',
-  `password` text NOT NULL COMMENT 'Contraseña encriptada del usuario',
-  `enabled` tinyint(4) NOT NULL COMMENT 'Usuario habilitado en el sistema',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Unique user ID',
+  `username` text NOT NULL COMMENT 'Username',
+  `email` text NOT NULL COMMENT 'User email',
+  `password` text NOT NULL COMMENT 'Encrypted password',
+  `enabled` tinyint(4) NOT NULL COMMENT 'User is enabled',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='Tabla de datos de los usuarios' AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COMMENT='User data table' AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `user`
+-- Estructura de tabla para la tabla `user_course`
 --
 
-INSERT INTO `user` (`id`, `username`, `email`, `password`, `enabled`) VALUES
-(1, 'rarce', 'rarce@uaa.edu.py', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1);
+CREATE TABLE IF NOT EXISTS `user_course` (
+  `user_id` int(11) NOT NULL COMMENT 'User ID',
+  `course_id` int(11) NOT NULL COMMENT 'Course ID',
+  `is_prof` tinyint(4) NOT NULL COMMENT 'User is professor'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

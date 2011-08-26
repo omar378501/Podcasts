@@ -19,7 +19,7 @@ if ($_SESSION["access"] == "granted") {
 			FROM user_course,course 
 			WHERE user_course.user_id='%s' AND course.id = user_course.course_id 
 			ORDER BY course_id",
-		mysql_real_escape_string($_SESSION["id"]));
+			mysql_real_escape_string($_SESSION["id"]));
 		/* Hacer la consulta */
 		$result_course = mysql_query($query_course);
 
@@ -34,7 +34,13 @@ if ($_SESSION["access"] == "granted") {
 		print ("<b>Cursos:</b></br>\n");
 		
 		while ($row = mysql_fetch_row($result_course)) {
-			print ('<a href="./course.php?id='. $row["0"] .'">' . $row["2"] . ': ' . $row["3"] . '</a></br>' . "\n");
+			if ($row["1"] == 1) {
+				$is_prof = "(prof)";
+			} else {
+				$is_prof = "";
+			}
+			
+			print ('<a href="./course.php?id='. $row["0"] .'">' . $row["2"] . ': ' . $row["3"] . '</a> '. $is_prof .'</br>' . "\n");
 		}
 		
 		
