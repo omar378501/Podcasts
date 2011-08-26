@@ -3,10 +3,11 @@
 $user = $_POST["username"];
 $pass = sha1($_POST["password"]);
 
+include ("./config.php");
 /* Establecer la conexion a la base de datos */
-$server = mysql_connect("localhost", "filepush", "filepush"); 
+$server = mysql_connect($db_server, $db_user, $db_pass); 
 if (!$server) die(mysql_error());
-mysql_select_db("filepush");
+mysql_select_db($db_name);
   
 /* Sentencia de SQL para buscar en la base de datos */
 $query = sprintf("SELECT id,enabled FROM user WHERE username='%s' AND password='%s'",
