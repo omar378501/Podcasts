@@ -41,8 +41,10 @@ if ($_SESSION["access"] == "granted") {
 			}
 			
 			print ('<a href="./course.php?id='. $row["0"] .'">' . $row["2"] . ': ' . $row["3"] . '</a> '. $is_prof .'</br>' . "\n");
-			print ('<a href="./course.php">Todos</a>');
+			
 		}
+		
+		print ('<a href="./course.php">Todos</a>');
 		
 		
 	} else {

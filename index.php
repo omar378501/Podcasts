@@ -1,11 +1,15 @@
 <?php
+include ("./header.php");
+
 session_start();
 
 $do = $_GET["do"];
 
 if ($do == "logout") {
 	
+	session_destroy();
 	header("Location: ./login.html");
+	
 	
 } else {
 
@@ -15,7 +19,7 @@ if ($do == "logout") {
 	
 			print ("Bienvenid@ " . $_SESSION["username"] . '</br>');
 		
-			print ('<a href="./index.php?do=logout">Salir</a>');
+			print ('<a href="./index.php?do=logout">Salir</a>'. "\n");
 		
 	
 		} else {
@@ -29,4 +33,6 @@ if ($do == "logout") {
 	}
 	
 }
+
+include ("./footer.php");
 ?>
