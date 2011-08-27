@@ -10,8 +10,8 @@ if (!$server) die(mysql_error());
 mysql_select_db($db_name);
   
 /* Sentencia de SQL para buscar en la base de datos */
-$query = sprintf("SELECT id,enabled FROM user WHERE username='%s' AND password='%s'",
-	mysql_real_escape_string($user),
+$query = sprintf("SELECT id,username,email,enabled FROM user WHERE (username='%s' OR email='%s') AND password='%s'",
+	mysql_real_escape_string($user), mysql_real_escape_string($user),
 	mysql_real_escape_string($pass));
 
 /* Hacer la consulta */
@@ -32,6 +32,8 @@ if (mysql_fetch_row($result)) {
 
 	$row = mysql_fetch_array($result);
 	$user_id = $row["id"];
+	$user_email = $row["email"];
+	$user_username = $row["username"];
 	$enabled = $row["enabled"];
 	
 	
@@ -41,7 +43,8 @@ if (mysql_fetch_row($result)) {
 	
 	// guarda algunos valores en la sesion
 	$_SESSION["access"] = "granted";
-	$_SESSION["username"] = $user;
+	$_SESSION["username"] = $user_username;
+	$_SESSION["email"] = $user_email;
 	$_SESSION["id"] = $user_id;
 	$_SESSION["enabled"] = $enabled;
   

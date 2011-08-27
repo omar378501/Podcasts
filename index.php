@@ -17,9 +17,7 @@ if ($do == "logout") {
 		
 		if (isset($_SESSION["enabled"]) AND $_SESSION["enabled"] == 1) {
 	
-			print ("Bienvenid@ " . $_SESSION["username"] . '</br>');
-		
-			print ('<a href="./index.php?do=logout">Salir</a>'. "\n");
+			print ("Bienvenid@ " . $_SESSION["username"]);
 		
 	
 		} else {

@@ -23,28 +23,57 @@ if ($_SESSION["access"] == "granted") {
 		/* Hacer la consulta */
 		$result_course = mysql_query($query_course);
 
-		/* control de ejecucion */
+		/* Cntrol de ejecucion */
 		if (!$result_course) {
 			$message  = 'Sentencia invalida: ' . mysql_error() . "\n";
 			$message .= 'Whole query: ' . $query_course;
 			die($message);
 		}
 		
-		print ("Bienvenid@:</br>\n");
-		print ("<b>Cursos:</b></br>\n");
+		/* Consulta para los archivos de usuario
+		* $query_files = sprintf("SELECT user_course.course_id,user_course.is_prof,course.name, course.description
+		*	FROM user_course,course 
+		*	WHERE user_course.user_id='%s' AND course.id = user_course.course_id 
+		*	ORDER BY course_id",
+		*	mysql_real_escape_string($_SESSION["id"]));
+		*
+		* $result_files = mysql_query($query_course); */
 		
-		while ($row = mysql_fetch_row($result_course)) {
-			if ($row["1"] == 1) {
-				$is_prof = "(prof)";
+		/* Impresion de los resultados */
+		
+		print ("Bienvenid@:<br>\n");
+		
+		/* Listar los cursos y hacer enlaces a los mismos */
+		print ("<b>Cursos:</b><br>\n");
+		
+		while ($row = mysql_fetch_assoc($result_course)) {
+			/* Marcar los cursos que en los cuales soy profesor*/
+			if ($row["is_prof"] == 1) {
+				$is_prof = "(*)";
 			} else {
 				$is_prof = "";
 			}
 			
-			print ('<a href="./course.php?id='. $row["0"] .'">' . $row["2"] . ': ' . $row["3"] . '</a> '. $is_prof .'</br>' . "\n");
+			/* Guardar los cursos en un array */		
+			$course_id = $row["course_id"];
+			if (isset($course_list)) {
+			
+				array_push($course_list, $course_id);
+			
+			} else {
+			
+				$course_list = array( '0' => $row["course_id"]);
+			
+			}
+			 
+			print ('<a href="./course.php?id='. $row["course_id"] .'">' . $row["name"] . ': ' . $row["description"] . '</a> '. $is_prof .'<br>' . "\n");
 			
 		}
+		/* Guardar el array de cursos en la sesion */
+		$_SESSION["courses"] = &$course_list;
 		
-		print ('<a href="./course.php">Todos</a>');
+		
+		print ('<a href="./course.php">Todos</a>' . "\n");
 		
 		
 	} else {
@@ -59,6 +88,8 @@ if ($_SESSION["access"] == "granted") {
 	session_destroy ();
 	
 }
+
+mysql_close($server);
 
 ?>
 
