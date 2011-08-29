@@ -15,4 +15,6 @@ $db_pass = "filepush";
 // Base de datos a ser usada
 $db_name = "filepush";
 
+$target_path = "files/";
+
 ?>
