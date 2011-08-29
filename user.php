@@ -10,7 +10,7 @@ header("Cache-control: private");
 if ($_SESSION["access"] == "granted") {
 	if (isset($_SESSION["enabled"]) AND $_SESSION["enabled"] == 1) {
 		/* Establecer la conexion a la base de datos */
-		$server = mysql_connect($host, $db_user, $db_pass); 
+		$server = mysql_connect($db_server, $db_user, $db_pass); 
 		if (!$server) die(mysql_error());
 		mysql_select_db($db_name);
   
@@ -28,9 +28,7 @@ if ($_SESSION["access"] == "granted") {
 			FROM file,user_file 
 			WHERE user_file.user_id='%s' AND file.id = user_file.file_id
 			ORDER BY file.id DESC LIMIT 10",
-			mysql_real_escape_string($_SESSION["id"]));
-		/* Hacer la consulta */
-		
+			mysql_real_escape_string($_SESSION["id"]));		
 
 		print ("Bienvenid@:<br>\n");
 		
@@ -61,8 +59,6 @@ if ($_SESSION["access"] == "granted") {
 			
 		}
 		
-		/* Guardar el array de cursos en la sesion */
-		$_SESSION["courses"] = &$course_list;
 		
 		echo "<a href=\"./course.php\">Todos</a><br>\n";
 		
@@ -96,8 +92,6 @@ if ($_SESSION["access"] == "granted") {
 				}
 				
 			}
-			
-			$_SESSION["files"] = &$file_list;
 			
 			echo "<a href=\"./file.php\">Todos</a><br>\n";
 		

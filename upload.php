@@ -90,7 +90,8 @@ if ($_SESSION["access"] == "granted") {
 						
 						mysql_close($server);
 						
-						echo "El archivo ". $_FILES['uploaded']['name'] . " ha sido agregado exitosamente con el id: " . $file_id ;
+						echo "El archivo ". $_FILES['uploaded']['name'] . " ha sido agregado exitosamente <br>\n";
+						echo "<a href=\"./file.php?do=edit&id=" . $file_id .">Editar propiedades</a>";
 						
 
 					} else{

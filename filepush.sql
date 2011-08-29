@@ -36,7 +36,6 @@ CREATE TABLE `course` (
 
 LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course` DISABLE KEYS */;
-INSERT INTO `course` VALUES (1,'INFO120','Introduccion a la informatica'),(2,'INFO121','Logica de programacion I');
 /*!40000 ALTER TABLE `course` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -67,6 +66,28 @@ LOCK TABLES `file` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `file_course`
+--
+
+DROP TABLE IF EXISTS `file_course`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `file_course` (
+  `file_id` int(11) NOT NULL COMMENT 'File ID',
+  `course_id` int(11) NOT NULL COMMENT 'Course ID'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Relaciones entre archivos y cursos';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `file_course`
+--
+
+LOCK TABLES `file_course` WRITE;
+/*!40000 ALTER TABLE `file_course` DISABLE KEYS */;
+/*!40000 ALTER TABLE `file_course` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -89,7 +110,6 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'rarce','rarce@uaa.edu.py','7c4a8d09ca3762af61e59520943dc26494f8941b',1),(2,'salcaraz','salcaraz@uaa.edu.py','7c4a8d09ca3762af61e59520943dc26494f8941b',1);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -113,8 +133,29 @@ CREATE TABLE `user_course` (
 
 LOCK TABLES `user_course` WRITE;
 /*!40000 ALTER TABLE `user_course` DISABLE KEYS */;
-INSERT INTO `user_course` VALUES (1,1,0),(2,2,0),(1,2,1),(2,1,1);
 /*!40000 ALTER TABLE `user_course` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `user_file`
+--
+
+DROP TABLE IF EXISTS `user_file`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `user_file` (
+  `user_id` int(11) NOT NULL COMMENT 'User ID',
+  `file_id` int(11) NOT NULL COMMENT 'File ID'
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='File ownership';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `user_file`
+--
+
+LOCK TABLES `user_file` WRITE;
+/*!40000 ALTER TABLE `user_file` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_file` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -126,4 +167,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2011-08-29  9:46:46
+-- Dump completed on 2011-08-29 14:43:44
