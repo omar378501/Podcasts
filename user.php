@@ -33,7 +33,7 @@ if ($_SESSION["access"] == "granted") {
 		print ("Bienvenid@:<br>\n");
 		
 		/* Listar los cursos y hacer enlaces a los mismos */
-		print ("<br><b>Cursos:</b><br>\n");
+		print ("<br><b>Mis Cursos:</b><br>\n");
 		
 		while ($row = mysql_fetch_assoc($result_course)) {
 			/* Marcar los cursos que en los cuales soy profesor*/
