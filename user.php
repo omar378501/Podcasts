@@ -3,7 +3,7 @@ include ("./header.php");
 ?>
 
 <?php
-include ("./config.php");
+include ("./inc/config.php");
 session_start();
 
 header("Cache-control: private");

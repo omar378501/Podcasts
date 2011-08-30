@@ -3,7 +3,7 @@
 $user = $_POST["username"];
 $pass = sha1($_POST["password"]);
 
-include ("./config.php");
+include ("./inc/config.php");
 /* Establecer la conexion a la base de datos */
 $server = mysql_connect($db_server, $db_user, $db_pass); 
 if (!$server) die(mysql_error());

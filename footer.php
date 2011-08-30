@@ -1,6 +1,7 @@
 <br>
 <b>Menu:</b><br>
 <?php
+
 if ($_SESSION["access"] == "granted") {
 			
 	if (isset($_SESSION["enabled"]) AND $_SESSION["enabled"] == 1) {

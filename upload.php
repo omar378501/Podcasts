@@ -2,7 +2,7 @@
 session_start();
 
 include ("./header.php");
-include ("./config.php");
+include ("./inc/config.php");
 $do = $_GET["do"];
 
 if ($_SESSION["access"] == "granted") {
