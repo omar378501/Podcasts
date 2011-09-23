@@ -10,7 +10,7 @@ $db_server = "localhost";
 $db_user = "filepush";
 
 // Password de conexion
-$db_pass = "filepush";
+$db_pass = "secret";
 
 // Base de datos a ser usada
 $db_name = "filepush";
