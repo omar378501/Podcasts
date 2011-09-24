@@ -24,13 +24,11 @@ if (!$result) {
     die($message);
 }
 
+$row = mysql_fetch_array($result);
 
 /* Permitir el acceso solo si se encontro un match */
-if (mysql_fetch_row($result)) {
+if ($row) {
 	/* Acceso Permitido */
-	$result = mysql_query($query);
-
-	$row = mysql_fetch_array($result);
 	$user_id = $row["id"];
 	$user_email = $row["email"];
 	$user_username = $row["username"];
