@@ -21,7 +21,7 @@ if ($_SESSION["access"] == "granted") {
 			WHERE user_course.user_id='%s' AND course.id = user_course.course_id 
 			ORDER BY course_id",
 			mysql_real_escape_string($_SESSION["id"]));
-		/* Hacer la consulta */
+		/* Hacer la consulta de cursos*/
 		$result_course = mysql_query($query_course);
 		
 		$query_files = sprintf("SELECT file.id,file.filename 
@@ -29,13 +29,24 @@ if ($_SESSION["access"] == "granted") {
 			WHERE user_file.user_id='%s' AND file.id = user_file.file_id
 			ORDER BY file.id DESC LIMIT 10",
 			mysql_real_escape_string($_SESSION["id"]));		
-
-		print ("Bienvenid@:<br>\n");
+		/* Hacer la consulta de archivos*/
+		$result_files = mysql_query($query_files);
+		
+                print ("Bienvenid@:<br>\n");
 		
 		/* Listar los cursos y hacer enlaces a los mismos */
 		print ("<br><b>Mis Cursos:</b><br>\n");
 		
-		while ($row = mysql_fetch_assoc($result_course)) {
+                $result_course = mysql_query($query_course);
+		/* Control de ejecucion */
+		if (!$result_course) {
+			$message  = 'Sentencia invalida: ' . mysql_error() . "\n";
+			$message .= 'Whole query: ' . $query_course;
+			die($message);
+                        
+		} else {
+                        
+                        while ($row = mysql_fetch_assoc($result_course)) {
 			/* Marcar los cursos que en los cuales soy profesor*/
 			if ($row["is_prof"] == 1) {
 				$is_prof = "(*)";
@@ -57,26 +68,22 @@ if ($_SESSION["access"] == "granted") {
 			 
 			echo "<a href=\"./course.php?id=". $row["course_id"] ."\">". $row["name"] . ": " . $row["description"] . "</a> ". $is_prof ."<br>\n";
 			
-		}
+                        }
 		
-		
+                }
 		echo "<a href=\"./course.php\">Todos</a><br>\n";
 		
-		/* Listar los ultimos archivos subidos por el usuario */
-		$result_files = mysql_query($query_files);
+
 		/* Control de ejecucion */
 		if (!$result_files) {
 			$message  = 'Sentencia invalida: ' . mysql_error() . "\n";
 			$message .= 'Whole query: ' . $query_course;
 			die($message);
-		}
-		
-		if (mysql_fetch_row($result_files)) {
-			echo "<br><b>Mis ultimos archivos:</b><br>\n";
-			
-			$result_files = mysql_query($query_files);
-			
-			while ($row = mysql_fetch_assoc($result_files)) {
+		} else {
+                    
+                        echo "<br><b>Mis ultimos archivos:</b><br>\n";
+
+                        while ($row = mysql_fetch_assoc($result_files)) {
 				echo "<a href=\"./file.php?id=". $row["id"] ."\">". $row["filename"] . "</a><br>\n";
 				
 				/* Guardar los cursos en un array */		
