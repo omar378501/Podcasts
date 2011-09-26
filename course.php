@@ -15,10 +15,10 @@ if ($_SESSION["access"] == "granted") {
                 $server = mysql_connect($db_server, $db_user, $db_pass); 
                 if (!$server) die(mysql_error());
                 mysql_select_db($db_name);
-
-                /* Sentencia: buscar en la base de datos los cursos en los cuales participa,
-                 * y si es profesor, el usuario en cuestion */
+                
                 if (isset($id)){
+                        /* Sentencia: buscar en la base de datos los cursos en los cuales participa,
+                        * y si es profesor, el usuario en cuestion */
                         $query_file_list = sprintf("SELECT file.id,file.filename,file.description
                         FROM file,file_course
                         WHERE file_course.course_id='%s' 
@@ -27,6 +27,8 @@ if ($_SESSION["access"] == "granted") {
                         mysql_real_escape_string($id));
                         
                 } else {
+                        /* Sentencia: mostrar los archivos de los cursos en los cuales el usuario
+                        * es participe, pero los archivos que el no es propietario */
                         $query_file_list = sprintf("SELECT file.id,file.filename,file.description
                         FROM file,file_course,user_file,user_course
                         WHERE user_course.user_id = '%s' 
