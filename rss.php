@@ -35,6 +35,7 @@ if (!$result_file_list) {
         echo "\t<channel>\n";
         echo "\t<title> Portal Multimedia </title>\n";
         echo "\t<link href=\"http://www.uaa.edu.py\" />\n";
+        echo "\t<author>\n\t <name>Departamento de Innovacion y Tecnologia Educativa</name>\n\t</author>\n";
                                
         while ($row = mysql_fetch_assoc($result_file_list)) {
                 echo "\t\t<item>\n";
