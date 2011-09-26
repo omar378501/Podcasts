@@ -20,22 +20,22 @@ if ($_SESSION["access"] == "granted") {
                         /* Sentencia: buscar en la base de datos los cursos en los cuales participa,
                         * y si es profesor, el usuario en cuestion */
                         $query_file_list = sprintf("SELECT file.id,file.filename,file.description
-                        FROM file,file_course
-                        WHERE file_course.course_id='%s' 
-                        AND file.id = file_course.file_id
-                        ORDER BY course_id",
+                                FROM file,file_course
+                                WHERE file_course.course_id='%s' 
+                                AND file.id = file_course.file_id
+                                ORDER BY course_id",
                         mysql_real_escape_string($id));
                         
                 } else {
                         /* Sentencia: mostrar los archivos de los cursos en los cuales el usuario
                         * es participe, pero los archivos que el no es propietario */
                         $query_file_list = sprintf("SELECT file.id,file.filename,file.description
-                        FROM file,file_course,user_file,user_course
-                        WHERE user_course.user_id = '%s' 
-                        AND file_course.course_id = user_course.course_id
-                        AND file.id = file_course.file_id
-                        AND user_file.user_id = user_course.user_id
-                        AND NOT file.id = user_file.user_id",
+                                FROM file,file_course,user_file,user_course
+                                WHERE user_course.user_id = '%s' 
+                                AND file_course.course_id = user_course.course_id
+                                AND file.id = file_course.file_id
+                                AND user_file.user_id = user_course.user_id
+                                AND NOT file.id = user_file.user_id",
                         mysql_real_escape_string($_SESSION["id"]) );
                 }
                 /* Hacer la consulta */
