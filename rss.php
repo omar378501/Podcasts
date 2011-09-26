@@ -17,7 +17,8 @@ $query_file_list = sprintf("SELECT file.id,file.filename,file.description
         AND file_course.course_id = user_course.course_id
         AND file.id = file_course.file_id
         AND user_file.user_id = user_course.user_id
-        AND NOT file.id = user_file.user_id",
+        AND NOT file.id = user_file.user_id
+        ORDER BY file.id DESC",
         mysql_real_escape_string($user_id) );
 
 $result_file_list = mysql_query($query_file_list);
