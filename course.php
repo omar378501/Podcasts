@@ -5,7 +5,7 @@ include ("./inc/config.php");
 
 session_start();
 
-$id = $_GET["id"];
+$course_id = $_GET["course_id"];
 
 if ($_SESSION["access"] == "granted") {
 			
@@ -21,7 +21,8 @@ if ($_SESSION["access"] == "granted") {
                 if (isset($id)){
                         $query_file_list = sprintf("SELECT file.id,file.filename,file.description
                         FROM file,file_course
-                        WHERE file_course.course_id='%s' AND file.id = file_course.file_id
+                        WHERE file_course.course_id='%s' 
+                        AND file.id = file_course.file_id
                         ORDER BY course_id",
                         mysql_real_escape_string($id));
                         
