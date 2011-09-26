@@ -53,19 +53,6 @@ if ($_SESSION["access"] == "granted") {
 			} else {
 				$is_prof = "";
 			}
-			
-			/* Guardar los cursos en un array */		
-			$course_id = $row["course_id"];
-			if (isset($course_list)) {
-			
-				array_push($course_list, $course_id);
-			
-			} else {
-			
-				$course_list = array( '0' => $row["course_id"]);
-			
-			}
-			 
 			echo "<a href=\"./course.php?course_id=". $row["course_id"] ."\">". $row["name"] . ": " . $row["description"] . "</a> ". $is_prof ."<br>\n";
 			
                         }
@@ -86,20 +73,8 @@ if ($_SESSION["access"] == "granted") {
                         while ($row = mysql_fetch_assoc($result_files)) {
 				echo "<a href=\"./file.php?id=". $row["id"] ."\">". $row["filename"] . "</a><br>\n";
 				
-				/* Guardar los cursos en un array */		
-				$file_id = $row["id"];
-				if (isset($file_list)) {
-				
-					array_push($file_list, $file_id);
-				
-				} else {
-				
-					$file_list = array( '0' => $row["id"]);
-				
-				}
 				
 			}
-			
 			echo "<a href=\"./file.php\">Todos</a><br>\n";
 		
 		}
