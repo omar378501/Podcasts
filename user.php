@@ -66,7 +66,7 @@ if ($_SESSION["access"] == "granted") {
 			
 			}
 			 
-			echo "<a href=\"./course.php?id=". $row["course_id"] ."\">". $row["name"] . ": " . $row["description"] . "</a> ". $is_prof ."<br>\n";
+			echo "<a href=\"./course.php?course_id=". $row["course_id"] ."\">". $row["name"] . ": " . $row["description"] . "</a> ". $is_prof ."<br>\n";
 			
                         }
 		
