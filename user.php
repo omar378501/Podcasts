@@ -26,13 +26,13 @@ if ($_SESSION["access"] == "granted") {
 		
                 /* Sentencia: mostrar los archivos de los cursos en los cuales el usuario
                 * es participe, pero los archivos que el no es propietario */
-                $query_all_files = sprintf("SELECT file.id,file.filename,file.description
+                $query_all_files = sprintf("SELECT DISTINCT file.id,file.filename,file.description
                         FROM file,file_course,user_file,user_course
                         WHERE user_course.user_id = '%s' 
                         AND file_course.course_id = user_course.course_id
                         AND file.id = file_course.file_id
-                        AND user_file.user_id = user_course.user_id
-                        AND NOT file.id = user_file.user_id
+                        AND NOT user_file.user_id = user_course.user_id 
+                        AND file.id = user_file.file_id
                         ORDER BY file.id DESC LIMIT 10",
                         mysql_real_escape_string($_SESSION["id"]) );
                 $result_all_files = mysql_query($query_all_files);
