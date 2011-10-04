@@ -51,59 +51,61 @@ if ($_SESSION["access"] == "granted") {
 						$result_insert_file = mysql_query($query_insert_file);
 						/* control de ejecucion */
 						if (!$result_insert_file) {
-						    $message  = 'Sentencia invalida: ' . mysql_error() . "\n";
-						    $message .= 'Whole query: ' . $query_insert_file;
-						    die($message);
-						}
+                                                        $message  = 'Sentencia invalida: ' . mysql_error() . "\n";
+                                                        $message .= 'Whole query: ' . $query_insert_file;
+                                                        die($message);
+						} else {
 						
-						/* Hacer las consulta de recibir el id del archivo recientemente creado */
-						$result_get_id = mysql_query($query_get_file_id);
-						/* control de ejecucion */
-						if (!$result_get_id) {
-						    $message  = 'Sentencia invalida: ' . mysql_error() . "\n";
-						    $message .= 'Whole query: ' . $query_get_file_id;
-						    die($message);
-						}
+                                                        /* Hacer las consulta de recibir el id del archivo recientemente creado */
+                                                        $result_get_id = mysql_query($query_get_file_id);
+                                                        /* control de ejecucion */
+                                                        if (!$result_get_id) {
+                                                                $message  = 'Sentencia invalida: ' . mysql_error() . "\n";
+                                                                $message .= 'Whole query: ' . $query_get_file_id;
+                                                                die($message);
+                                                        } else {
+                                                                
+                                                                $result = mysql_query($query_get_file_id);
+                                                                $row = mysql_fetch_row($result);
+                                                                
+                                                        
+                                                                if (isset($row)) {
+                                                               
+                                                                        $file_id = $row[0];
 
-						if (mysql_fetch_row($result_get_id)) {
-							/* Acceso Permitido */
-							$result = mysql_query($query_get_file_id);
-						
-							$row = mysql_fetch_row($result);
-							
-							$file_id = $row[0];
-							
-						}
-						
-						$query_owner = sprintf("INSERT INTO user_file (user_id,file_id) VALUE ('%s','%s')",
-							mysql_real_escape_string($_SESSION["id"]),
-							mysql_real_escape_string($file_id));
-						
-						/* Hacer las insercion de relacion archivo usuario */
-						$result_owner = mysql_query($query_owner);
-						/* control de ejecucion */
-						if (!$result_get_id) {
-						    $message  = 'Sentencia invalida: ' . mysql_error() . "\n";
-						    $message .= 'Whole query: ' . $query_owner;
-						    die($message);
-						}
-						
-						mysql_close($server);
-						
-						echo "El archivo ". $_FILES['uploaded']['name'] . " ha sido agregado exitosamente <br>\n";
-						echo "<a href=\"./file.php?do=edit&id=" . $file_id .">Editar propiedades</a>";
-						
+                                                                }
+                                                        }
+                                                        $query_owner = sprintf("INSERT INTO user_file (user_id,file_id) VALUE ('%s','%s')",
+                                                                mysql_real_escape_string($_SESSION["id"]),
+                                                                mysql_real_escape_string($file_id));
 
-					} else{
+                                                        /* Hacer las insercion de relacion archivo usuario */
+                                                        $result_owner = mysql_query($query_owner);
+                                                        
+                                                        /* control de ejecucion */
+                                                        if (!$result_owner) {
+                                                            $message  = 'Sentencia invalida: ' . mysql_error() . "\n";
+                                                            $message .= 'Whole query: ' . $query_owner;
+                                                            die($message);
+                                                        }
+						
+                                                        mysql_close($server);
+
+                                                        echo "El archivo ". $_FILES['uploaded']['name'] . " ha sido agregado exitosamente <br>\n";
+                                                        echo "<a href=\"./file.php?do=edit&id=" . $file_id .">Editar propiedades</a>";
+						
+                                                }
+                                                
+                                        } else{
 						
 						echo "Un error ha ocurrido, por favor intente de nuevo";
-					}		
+                                                
+                                                
+                                        }
+                                }		
 
 					break;
-			}
-			
-		}
-
+                }
 
 } else {
 		
