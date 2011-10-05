@@ -16,6 +16,6 @@ INSERT INTO file (id,filename,date,description,path) VALUES(2,'filepush.sql','00
 INSERT INTO user_file (user_id,file_id) VALUES (1,1);
 INSERT INTO user_file (user_id,file_id) VALUES (1,1);
 #File_course
-INSERT INTO file_course (user_id,file_id) VALUES (2,2);
-INSERT INTO file_course (user_id,file_id) VALUES (1,1);
+INSERT INTO file_course (course_id,file_id) VALUES (2,2);
+INSERT INTO file_course (course_id,file_id) VALUES (1,1);
 
