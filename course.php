@@ -51,7 +51,7 @@ if ($_SESSION["access"] == "granted") {
                                
                                while ($row = mysql_fetch_assoc($result_file_list)) {
 
-                                      echo $row["filename"] . "<br>\n";
+                                      echo "<a href=\"./file.php?id=". $row["id"] ."\">". $row["filename"] . "</a><br>\n";
                                    }
                         }
                 
