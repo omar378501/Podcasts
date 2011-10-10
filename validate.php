@@ -19,9 +19,9 @@ $result = mysql_query($query);
 
 /* control de ejecucion */
 if (!$result) {
-    $message  = 'Sentencia invalida: ' . mysql_error() . "\n";
-    $message .= 'Whole query: ' . $query;
-    die($message);
+        $message  = 'Sentencia invalida: ' . mysql_error() . "\n";
+        $message .= 'Whole query: ' . $query;
+        die($message);
 }
 
 $row = mysql_fetch_array($result);
@@ -50,10 +50,11 @@ if ($row) {
 	
 } else {
 	
-  /* Acceso negado */
-  header("Location: ./login.html");
+        /* Acceso negado */
+        header("Location: ./login.html");
   
 }
 
 mysql_close($server);  
+
 ?>
