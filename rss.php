@@ -11,14 +11,14 @@ mysql_select_db($db_name);
 
 /* Sentencia: mostrar los archivos de los cursos en los cuales el usuario
 * es participe, pero los archivos que el no es propietario */
-$query_file_list = sprintf("SELECT file.id,file.filename,file.description
-        FROM file,file_course,user_file,user_course
-        WHERE user_course.user_id = '%s' 
-        AND file_course.course_id = user_course.course_id
-        AND file.id = file_course.file_id
-        AND user_file.user_id = user_course.user_id
-        AND NOT file.id = user_file.user_id
-        ORDER BY file.id DESC",
+$query_file_list = sprintf("SELECT DISTINCT file.id,file.filename,file.description
+                        FROM file,file_course,user_file,user_course
+                        WHERE user_course.user_id = '%s' 
+                        AND file_course.course_id = user_course.course_id
+                        AND file.id = file_course.file_id
+                        AND NOT user_file.user_id = user_course.user_id 
+                        AND file.id = user_file.file_id
+                        ORDER BY file.id DESC LIMIT 10",
         mysql_real_escape_string($user_id) );
 
 $result_file_list = mysql_query($query_file_list);
